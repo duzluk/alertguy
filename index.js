@@ -1,12 +1,15 @@
 const request = require('request')
 const applescript = require('applescript')
 const nodemailer = require('nodemailer')
+const os = require('os')
 
 class Alerts {
 
 	constructor(config) {
 
 		this.config = config
+		this.osType = os.type()
+			.toLowerCase()
 
 	}
 
@@ -91,26 +94,32 @@ class Alerts {
 
 	}
 
-	async sendImessage() {
+	sendImessage(guid, message) {
 
-		// TODO
-		console.log('Sending imessage')
+		if (this.getOS() !== 'Mac') {
+
+			console.log('Script must be hosted on a Mac computer for iMessage to work')
+
+			return false
+
+		}
+
+		console.log('Sending iMessage')
 
 		// const script = 'tell application "iTunes" to get name of selection';
-		const script = `tell application "Messages
-
-		set myid to get id of first service
-
-		set theBuddy to buddy "X" of service id myid
-
-		send "Hi there" to theBuddy
-
+		const script = `tell application "Messages"
+		set myid to "${guid}"
+		set mymessage to "${message}"
+		set theBuddy to a reference to text chat id myid
+		send mymessage to theBuddy
 		end tell`
 
 		applescript.execString(script, (err, rtn) => {
 
 			if (err) {
-				// Something went wrong!
+
+				console.log(`Error on sending iMessage message: ${err}`)
+
 			}
 
 			if (Array.isArray(rtn)) {
@@ -124,6 +133,18 @@ class Alerts {
 			}
 
 		})
+
+	}
+
+	getOS() {
+
+		let osName = 'Other'
+
+		if (this.osType === 'darwin') osName = 'Mac'
+		else if (this.osType === 'linux') osName = 'Linux'
+		else if (this.osType.indexOf('win') > -1) osName = 'Windows'
+
+		return osName
 
 	}
 

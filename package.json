@@ -9,6 +9,6 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "eslint-config-node-script-js": "^1.0.4"
+    "eslint-config-node-script-js": "latest"
   }
 }
