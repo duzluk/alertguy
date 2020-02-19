@@ -45,7 +45,7 @@ class Alerts {
 
 	async sendEmail(emailInfo, emailProvider) {
 
-		// ONLY GMAIL IS SUPPORTED NOW
+		// ONLY GMAIL and HOTMAIL SUPPORTED NOW
 		try {
 
 			console.log('Sending email message')
@@ -58,8 +58,8 @@ class Alerts {
 					// secure: this.config.email.secure === 'true', // true for 465, false for other ports
 					service: emailProvider,
 					auth: {
-						user: this.config.email.userEmail, // generated ethereal user
-						pass: this.config.email.pass, // generated ethereal password
+						user: this.config.email.userEmail,
+						pass: this.config.email.pass,
 					},
 				})
 
@@ -106,7 +106,6 @@ class Alerts {
 
 		console.log('Sending iMessage')
 
-		// const script = 'tell application "iTunes" to get name of selection';
 		const script = `tell application "Messages"
 		set myid to "${guid}"
 		set mymessage to "${message}"
