@@ -10,5 +10,13 @@
   },
   "devDependencies": {
     "eslint-config-node-script-js": "latest"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lincolnaleixo/alertguy"
+  },
+  "bugs": {
+    "url": "https://github.com/lincolnaleixo/alertguy/issues"
+  },
+  "homepage": "https://github.com/lincolnaleixo/alertguy#readme"
 }
