@@ -5,11 +5,12 @@
   "license": "GPL-3.0",
   "dependencies": {
     "applescript": "^1.0.0",
+    "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.2",
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "eslint-config-node-script-js": "latest"
+    "eslint-config-node-script-js": "1.0.11"
   },
   "repository": {
     "type": "git",
