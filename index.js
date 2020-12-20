@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const applescript = require('applescript')
 const nodemailer = require('nodemailer')
 const os = require('os')
-
+const qs = require('query-string');
 class Alerts {
 
 	constructor(config) {
@@ -19,7 +19,15 @@ class Alerts {
 			if (this.config.telegram !== undefined) {
 				const { token } = this.config.telegram
 				const { chatId } = this.config.telegram
-				const url = encodeURI(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}&parse_mode=HTML`)
+				const baseUrl = `https://api.telegram.org/bot${token}`
+				const urlParams = qs.stringify({
+					chat_id: chatId,
+					text: message,
+					parse_mode: 'HTML'
+				})
+
+				const url = `${baseUrl}/sendMessage?${urlParams}`
+				// const url = encodeURI(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}&parse_mode=HTML`)
 				await fetch(url, { method: 'post' })
 				// await request.post(url) // removing for v14
 				console.log('telegram message sent')
